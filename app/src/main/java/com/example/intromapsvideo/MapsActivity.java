@@ -1,8 +1,13 @@
 package com.example.intromapsvideo;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,7 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -42,5 +47,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_normal:
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                break;
+
+            case R.id.action_hybrid:
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                break;
+
+            case R.id.satellite:
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                break;
+
+            case R.id.terrain:
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                break;
+
+            case R.id.action_none:
+                mMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+                break;
+        }
+
+        return true;
     }
 }
